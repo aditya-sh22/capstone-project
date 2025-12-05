@@ -4,7 +4,7 @@ import os, pymysql
 app=Flask(__name__)
 
 db_conn = pymysql.connect(
-    host="127.0.0.1",
+    host="mysql",
     port=3306,
     user="root",
     password="RootPass@123",

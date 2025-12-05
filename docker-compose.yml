@@ -4,12 +4,13 @@ services:
     image: mysql:8.0
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: mypassword
-      MYSQL_DATABASE: employee_db
+      MYSQL_ROOT_PASSWORD: RootPass@123
+      MYSQL_DATABASE: employees
     ports:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
 
   flaskapp:
     build: .
@@ -20,8 +21,8 @@ services:
       DBHOST: mysql
       DBPORT: 3306
       DBUSER: root
-      DBPWD: mypassword
-      DATABASE: employee_db
+      DBPWD: RootPass@123
+      DATABASE: employees
     depends_on:
       - mysql
 
