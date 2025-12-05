@@ -1,4 +1,3 @@
-flask
-pymysql
-python-dotenv
+Flask==2.3.2
+PyMySQL==1.1.1
 cryptography
