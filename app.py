@@ -54,6 +54,15 @@ def submit():
 
     return redirect('/')
 
+@app.route('/employees')
+def view_employees():
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM employees")
+    rows = cur.fetchall()
+    conn.close()
+    return render_template("employees.html", employees=rows)
+
 # ---------------- RUN APP -------------------------
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000)
