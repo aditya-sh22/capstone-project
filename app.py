@@ -1,16 +1,14 @@
 from flask import Flask, request, render_template, redirect
 import os, pymysql
-from dotenv import load_dotenv
-load_dotenv()
 
 app=Flask(__name__)
 
 db_conn = pymysql.connect(
-    host=os.getenv("DBHOST"),
-    port=int(os.getenv("DBPORT")),
-    user=os.getenv("DBUSER"),
-    password=os.getenv("DBPWD"),
-    database=os.getenv("DATABASE")
+    host="127.0.0.1",
+    port=3306,
+    user="root",
+    password="RootPass@123",
+    database="employees"
 )
 
 @app.route('/')
