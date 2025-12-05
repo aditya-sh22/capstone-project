@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   mysql:
+    container_name: mysql
     image: mysql:8.0
     restart: always
     environment:
@@ -13,6 +14,7 @@ services:
       - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
 
   flaskapp:
+    container_name: flaskapp
     build: .
     restart: always
     ports:
