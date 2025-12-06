@@ -41,7 +41,7 @@ Access at: http://localhost:5000
 ### 1. Build & Run using docker-compose:
 ```
 docker-compose up --build
-```
+````
 
 Flask App → http://localhost:5000  
 MySQL → localhost:3306
