@@ -38,7 +38,7 @@ jobs:
           run: |
             sed -i 's|image: myreg61712.azurecr.io/flaskapp:latest|image: '${{ secrets.ACR_REPO }}/flaskapp:v${{ github.run_number }}'|g' kubernetes/flaskapp.yaml
 
-        - name: Login to Azure
+        - name: Login to Azure using OIDC
           uses: azure/login@v2
           with:
             client-id: ${{ secrets.AZURE_CLIENT_ID }}
