@@ -16,10 +16,23 @@ jobs:
 
         - name: Build and push Docker image
           run: |
-            docker build -t ${{ secrets.ACR_REPO }}/flaskapp:${{ github.run_id }} .
-            docker tag ${{ secrets.ACR_REPO }}/flaskapp:${{ github.run_id }} ${{ secrets.ACR_REPO }}/flaskapp:latest
-            docker push ${{ secrets.ACR_REPO }}/flaskapp:${{ github.run_id }}
+            docker build -t ${{ secrets.ACR_REPO }}/flaskapp:${{ github.run_number }} .
+            docker tag ${{ secrets.ACR_REPO }}/flaskapp:${{ github.run_number }} ${{ secrets.ACR_REPO }}/flaskapp:latest
+            docker push ${{ secrets.ACR_REPO }}/flaskapp:${{ github.run_number }}
             docker push ${{ secrets.ACR_REPO }}/flaskapp:latest
+
+        - name: Trivy Container Scan
+          uses: aquasecurity/trivy-action@master
+          with:
+            image-ref: ${{ secrets.ACR_REPO }}/flaskapp:${{ github.run_number }}
+            format: 'table'
+            exit-code: '1'
+            severity: 'CRITICAL,HIGH'
+            ignore-unfixed: true
+
+        - name: Update Kubernetes manifests
+          run: |
+            sed -i 's|myreg61712.azurecr.io/flaskapp:latest|'${{ secrets.ACR_REPO }}/flaskapp:${{ github.run_number }}'|g' kubernetes/flaskapp.yaml
 
     AKS-deploy:
         needs: build-and-push
