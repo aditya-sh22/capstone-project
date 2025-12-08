@@ -9,6 +9,7 @@
     <table border="1" cellpadding="8">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Role</th>
@@ -18,6 +19,7 @@
         <tbody>
             {% for emp in employees %}
             <tr>
+                <td>{{ emp.id }}</td>
                 <td>{{ emp.name }}</td>
                 <td>{{ emp.email }}</td>
                 <td>{{ emp.role }}</td>
